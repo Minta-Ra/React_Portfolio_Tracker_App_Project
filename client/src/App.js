@@ -1,4 +1,4 @@
-// import './App.css';
+import './App.css';
 import MasterContainer from './containers/MasterContainer';
 
 function App() {

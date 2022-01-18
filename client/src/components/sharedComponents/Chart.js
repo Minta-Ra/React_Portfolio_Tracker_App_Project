@@ -1,7 +1,7 @@
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
-const ChartHoldingsByCompany = ({sharesData}) => {
+const Chart = ({sharesData}) => {
     
     const options = {
         chart: {
@@ -11,10 +11,10 @@ const ChartHoldingsByCompany = ({sharesData}) => {
             type: 'pie'
         },
         title: {
-            text:'Portfolio Distribution by Company'
+            text:'Portfolio Distribution'
         },
         tooltip: {
-            pointFormat: 'Value: <b>$ {point.y: .2f}</b>, Shares: {point.shares}'
+            pointFormat: 'Value: <b>$ {point.y}</b>, Shares: {point.shares}'
         },
         accessibility: {
             point: {
@@ -23,16 +23,13 @@ const ChartHoldingsByCompany = ({sharesData}) => {
         },
         plotOptions: {
             pie: {
-                allowPointSelect: false,
+                allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
                     enabled: true,
                     format:'{point.name} ({point.symbol}): {point.percentage: .1f} %'
                 }
             }
-        },
-        credits: {
-            enabled: false
         },
         series:[{
             name: 'Companies',
@@ -46,7 +43,7 @@ const ChartHoldingsByCompany = ({sharesData}) => {
         return {
             name: company.name,
             symbol: company.symbol,
-            y: company.currentPrice * company.numberOfShares,
+            y: company.avgPurchasePrice, //placeholder, change to current total value once current value is held in portfolio db objects
             shares: company.numberOfShares
         }
     })
@@ -57,4 +54,4 @@ const ChartHoldingsByCompany = ({sharesData}) => {
     )
 }
 
-export default ChartHoldingsByCompany;
+export default Chart;
