@@ -1,13 +1,8 @@
 import React, {useState} from 'react';
 
-const StockMarketSearch = ({stocks}) => {
+const StockMarketSearch = ({stocks, handleSearchedStock}) => {
 
     const [stockOptions, setStockOptions] = useState([]);
-
-
-    const displayOptions = stockOptions.map((stockOption, index) => {
-        return <option value={stockOption.symbol} key={index}>{stockOption.companyName}</option>
-    });
 
     const handleSearchResult = (searchedValue) => {
         const result = stocks.filter(stock => {
@@ -30,20 +25,30 @@ const StockMarketSearch = ({stocks}) => {
         };
     };
 
-    // TODO - On submit
-    // const handleSearchSubmit = (event) => {
-    //     event.preventDefault();
-    //     handleSearchResult(searchStocks);       // Write in StockMarketContainer
-    // };
+    const handleEnter = (event) => {
+        event.preventDefault();
+        handleSearchedStock(event.target.value)
+        console.log("I am handleClick", event.target.value);
+    };
+
+
+
+    const displayOptions = stockOptions.map((stockOption, index) => {
+        return <option value={stockOption.symbol} key={index}>{stockOption.companyName}</option>
+    });
 
     return (
-        <div>
+        <div style={{textAlign:'center'}}>
             <label>
-            <input onChange={handleSearchChange} list="browsers" name="browser"/>
+            <input style={{width:'200px', margin:'10px'}} 
+                onChange={handleSearchChange} 
+                onKeyDown = {event => event.key == "Enter" ? handleEnter(event) : null}
+                list="browsers" name="browser" autoComplete="off" placeholder="Search by name or symbol"
+            />
             </label>
-                <datalist id="browsers">
-                    {displayOptions}
-                </datalist>
+            <datalist id="browsers">
+                {displayOptions}
+            </datalist>
         </div>
     );
 };

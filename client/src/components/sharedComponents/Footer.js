@@ -1,7 +1,9 @@
-
+import './Footer.css'
 const Footer = () => {
-    return ( 
 
+
+    return ( 
+        <>
         <footer className="footer">
             <div className="contributers">
             <p>Contributers</p>
@@ -10,6 +12,7 @@ const Footer = () => {
             <p><a href="https://github.com/Minta-Ra">Raminta</a></p>
             </div>
         </footer>
+        </>
      );
 }
  
